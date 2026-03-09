@@ -3,6 +3,7 @@ import { LoginPage } from '../pages/login-page';
 import { DashboardPage } from '../pages/dashboard-page';
 import { ProjectDetailPage } from '../pages/project-detail-page';
 import { ProtectedRoute } from './protected-route';
+import { TaskDetailPage } from '../pages/task-detail-page';
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,14 @@ export const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
+  {
+  path: '/projects/:projectId/tasks/:taskId',
+  element: (
+    <ProtectedRoute>
+      <TaskDetailPage />
+    </ProtectedRoute>
+  ),
+},
   {
     path: '/login',
     element: <LoginPage />,

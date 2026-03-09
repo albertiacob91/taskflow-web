@@ -1,7 +1,7 @@
 import type { Task } from '../../api/tasks-api';
 import { useUpdateTask } from './use-update-task';
 import { useDeleteTask } from './use-delete-task';
-import { CommentsPanel } from '../comments/comments-panel';
+import { Link } from 'react-router-dom';
 
 type TasksListProps = {
   tasks: Task[];
@@ -55,7 +55,12 @@ export function TasksList({ tasks, projectId }: TasksListProps) {
             }}
           >
             <div>
-              <h3 style={{ margin: '0 0 8px' }}>{task.title}</h3>
+              <Link
+  to={`/projects/${projectId}/tasks/${task.id}`}
+  className="mb-2 block text-lg font-semibold text-slate-900 hover:text-blue-600"
+>
+  {task.title}
+</Link>
 
               <p style={{ margin: '0 0 8px', color: '#555' }}>
                 {task.description || 'Sin descripción'}
@@ -105,8 +110,7 @@ export function TasksList({ tasks, projectId }: TasksListProps) {
                 Vence: {new Date(task.dueDate).toLocaleDateString()}
               </small>
             )}
-          </div>
-          <CommentsPanel taskId={task.id} />
+          </div>          
         </article>
       ))}
     </div>
