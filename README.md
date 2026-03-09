@@ -1,73 +1,129 @@
-# React + TypeScript + Vite
+# TaskFlow Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend web for **TaskFlow**, a project and task management application
+built with **React**, **TypeScript**, and **Vite**.
 
-Currently, two official plugins are available:
+This project consumes the **TaskFlow API** and provides a modern
+interface for authentication, project management, task tracking,
+comments, and filtering.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+------------------------------------------------------------------------
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+-   Login with JWT authentication
+-   Protected routes
+-   Projects dashboard
+-   Create projects
+-   Project detail page
+-   Task listing by project
+-   Create tasks
+-   Update task status
+-   Delete tasks
+-   Task filtering by status, priority and search
+-   Task comments
+-   Edit and delete comments
+-   Environment-based API configuration
 
-## Expanding the ESLint configuration
+------------------------------------------------------------------------
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Frontend
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+-   React
+-   TypeScript
+-   Vite
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### State & Data Fetching
+
+-   TanStack Query
+-   Axios
+
+### Forms & Validation
+
+-   React Hook Form
+-   Zod
+
+### Styling
+
+-   Tailwind CSS
+
+------------------------------------------------------------------------
+
+## Project Structure
+
+    src/
+     ├── api/         # HTTP clients and API calls
+     ├── components/  # Shared UI components
+     ├── features/    # Domain features (projects, tasks, comments)
+     ├── pages/       # Route pages
+     ├── routes/      # Router configuration
+     ├── utils/       # Utilities
+     └── main.tsx     # App entry point
+
+------------------------------------------------------------------------
+
+## Environment Variables
+
+Create a `.env.local` file in the project root:
+
+    VITE_API_BASE_URL=http://localhost:3000
+
+You can use `.env.example` as reference.
+
+------------------------------------------------------------------------
+
+## Installation
+
+``` bash
+git clone https://github.com/albertiacob91/taskflow-web.git
+cd taskflow-web
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+------------------------------------------------------------------------
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Run in development
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+``` bash
+npm run dev
 ```
+
+App will run at:
+
+    http://localhost:5173
+
+------------------------------------------------------------------------
+
+## Build
+
+``` bash
+npm run build
+```
+
+------------------------------------------------------------------------
+
+## Related Project
+
+This frontend consumes the backend API from **TaskFlow API**.
+
+Repository:
+
+    https://github.com/albertiacob91/taskflow-api
+
+------------------------------------------------------------------------
+
+## Current Version
+
+    v0.10.0
+
+------------------------------------------------------------------------
+
+## Author
+
+**Albert Luis Iacob Istrati**
+
+GitHub:
+
+    https://github.com/albertiacob91
