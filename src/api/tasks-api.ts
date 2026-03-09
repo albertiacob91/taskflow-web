@@ -24,3 +24,17 @@ export async function getTasksByProject(projectId: string) {
   );
   return data;
 }
+
+type CreateTaskPayload = {
+  title: string;
+  description?: string;
+  projectId: string;
+  status?: 'TODO' | 'IN_PROGRESS' | 'DONE';
+  priority?: 'LOW' | 'MEDIUM' | 'HIGH';
+  dueDate?: string;
+};
+
+export async function createTask(payload: CreateTaskPayload) {
+  const { data } = await http.post('/tasks', payload);
+  return data;
+}
