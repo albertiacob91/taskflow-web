@@ -38,3 +38,16 @@ export async function createTask(payload: CreateTaskPayload) {
   const { data } = await http.post('/tasks', payload);
   return data;
 }
+
+type UpdateTaskPayload = {
+  status?: 'TODO' | 'IN_PROGRESS' | 'DONE';
+  priority?: 'LOW' | 'MEDIUM' | 'HIGH';
+  title?: string;
+  description?: string;
+  dueDate?: string;
+};
+
+export async function updateTask(taskId: string, payload: UpdateTaskPayload) {
+  const { data } = await http.patch(`/tasks/${taskId}`, payload);
+  return data;
+}

@@ -67,7 +67,7 @@ export function ProjectDetailPage() {
       )}
 
       {!isLoading && !isError && data && data.items.length > 0 && (
-        <TasksList tasks={data.items} />
+        <TasksList tasks={data.items} projectId={projectId} />
       )}
     </main>
   );
