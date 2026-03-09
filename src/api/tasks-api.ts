@@ -51,3 +51,8 @@ export async function updateTask(taskId: string, payload: UpdateTaskPayload) {
   const { data } = await http.patch(`/tasks/${taskId}`, payload);
   return data;
 }
+
+export async function deleteTask(taskId: string) {
+  const { data } = await http.delete(`/tasks/${taskId}`);
+  return data;
+}
