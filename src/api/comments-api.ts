@@ -36,3 +36,13 @@ export async function createComment(payload: CreateCommentPayload) {
   const { data } = await http.post('/comments', payload);
   return data;
 }
+
+export async function updateComment(commentId: string, content: string) {
+  const { data } = await http.patch(`/comments/${commentId}`, { content });
+  return data;
+}
+
+export async function deleteComment(commentId: string) {
+  const { data } = await http.delete(`/comments/${commentId}`);
+  return data;
+}
