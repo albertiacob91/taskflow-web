@@ -20,3 +20,13 @@ export async function getProjects() {
   const { data } = await http.get<ProjectsResponse>('/projects?page=1&limit=20');
   return data;
 }
+
+type CreateProjectPayload = {
+  name: string;
+  description?: string;
+};
+
+export async function createProject(payload: CreateProjectPayload) {
+  const { data } = await http.post('/projects', payload);
+  return data;
+}
