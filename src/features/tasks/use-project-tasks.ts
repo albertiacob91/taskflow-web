@@ -1,10 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { getTasksByProject } from '../../api/tasks-api';
 
-export function useProjectTasks(projectId: string) {
+type UseProjectTasksParams = {
+  projectId: string;
+  status?: 'TODO' | 'IN_PROGRESS' | 'DONE';
+  priority?: 'LOW' | 'MEDIUM' | 'HIGH';
+  search?: string;
+};
+
+export function useProjectTasks(params: UseProjectTasksParams) {
   return useQuery({
-    queryKey: ['tasks', projectId],
-    queryFn: () => getTasksByProject(projectId),
-    enabled: Boolean(projectId),
+    queryKey: ['tasks', params.projectId, params.status, params.priority, params.search],
+    queryFn: () => getTasksByProject(params),
+    enabled: Boolean(params.projectId),
   });
 }

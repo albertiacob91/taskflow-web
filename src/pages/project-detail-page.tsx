@@ -3,11 +3,21 @@ import { Link, useParams } from 'react-router-dom';
 import { useProjectTasks } from '../features/tasks/use-project-tasks';
 import { TasksList } from '../features/tasks/tasks-list';
 import { CreateTaskForm } from '../features/tasks/create-task-form';
+import { TaskFilters } from '../features/tasks/task-filters';
 
 export function ProjectDetailPage() {
   const { projectId = '' } = useParams();
-  const { data, isLoading, isError } = useProjectTasks(projectId);
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const [status, setStatus] = useState<'TODO' | 'IN_PROGRESS' | 'DONE' | ''>('');
+  const [priority, setPriority] = useState<'LOW' | 'MEDIUM' | 'HIGH' | ''>('');
+  const [search, setSearch] = useState('');
+
+  const { data, isLoading, isError } = useProjectTasks({
+    projectId,
+    status: status || undefined,
+    priority: priority || undefined,
+    search: search || undefined,
+  });
 
   return (
     <main style={{ maxWidth: 900, margin: '40px auto', padding: '24px' }}>
@@ -37,6 +47,15 @@ export function ProjectDetailPage() {
         Tareas del proyecto seleccionado
       </p>
 
+      <TaskFilters
+        status={status}
+        priority={priority}
+        search={search}
+        onStatusChange={setStatus}
+        onPriorityChange={setPriority}
+        onSearchChange={setSearch}
+      />
+
       {showCreateForm && (
         <section
           style={{
@@ -63,7 +82,7 @@ export function ProjectDetailPage() {
       )}
 
       {!isLoading && !isError && data?.items.length === 0 && (
-        <p>No hay tareas todavía en este proyecto.</p>
+        <p>No hay tareas para los filtros seleccionados.</p>
       )}
 
       {!isLoading && !isError && data && data.items.length > 0 && (

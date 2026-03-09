@@ -18,10 +18,33 @@ type TasksResponse = {
   totalPages: number;
 };
 
-export async function getTasksByProject(projectId: string) {
-  const { data } = await http.get<TasksResponse>(
-    `/tasks?projectId=${projectId}&page=1&limit=50`,
-  );
+type GetTasksByProjectParams = {
+  projectId: string;
+  status?: 'TODO' | 'IN_PROGRESS' | 'DONE';
+  priority?: 'LOW' | 'MEDIUM' | 'HIGH';
+  search?: string;
+};
+
+export async function getTasksByProject(params: GetTasksByProjectParams) {
+  const searchParams = new URLSearchParams();
+
+  searchParams.set('projectId', params.projectId);
+  searchParams.set('page', '1');
+  searchParams.set('limit', '50');
+
+  if (params.status) {
+    searchParams.set('status', params.status);
+  }
+
+  if (params.priority) {
+    searchParams.set('priority', params.priority);
+  }
+
+  if (params.search) {
+    searchParams.set('search', params.search);
+  }
+
+  const { data } = await http.get<TasksResponse>(`/tasks?${searchParams.toString()}`);
   return data;
 }
 
