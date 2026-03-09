@@ -32,10 +32,8 @@ export function LoginPage() {
   const onSubmit = async (values: LoginFormData) => {
     try {
       setServerError('');
-
       const data = await loginRequest(values);
       setAccessToken(data.accessToken);
-
       navigate('/', { replace: true });
     } catch {
       setServerError('Credenciales incorrectas o error del servidor');
@@ -43,45 +41,64 @@ export function LoginPage() {
   };
 
   return (
-    <main style={{ maxWidth: 420, margin: '80px auto', padding: '24px' }}>
-      <h1 style={{ marginBottom: '8px' }}>Iniciar sesión</h1>
-      <p style={{ marginBottom: '24px' }}>Accede a TaskFlow Web</p>
-
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <div style={{ marginBottom: '16px' }}>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            {...register('email')}
-            style={{ display: 'block', width: '100%', padding: '8px', marginTop: '6px' }}
-          />
-          {errors.email && (
-            <p style={{ color: 'crimson', marginTop: '6px' }}>{errors.email.message}</p>
-          )}
+    <main className="min-h-screen bg-slate-50 px-4 py-12">
+      <div className="mx-auto max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        <div className="mb-8">
+          <p className="mb-2 text-sm font-medium uppercase tracking-wide text-blue-600">
+            TaskFlow Web
+          </p>
+          <h1 className="text-3xl font-bold text-slate-900">Iniciar sesión</h1>
+          <p className="mt-2 text-sm text-slate-600">
+            Accede a tu espacio de proyectos y tareas.
+          </p>
         </div>
 
-        <div style={{ marginBottom: '16px' }}>
-          <label htmlFor="password">Contraseña</label>
-          <input
-            id="password"
-            type="password"
-            {...register('password')}
-            style={{ display: 'block', width: '100%', padding: '8px', marginTop: '6px' }}
-          />
-          {errors.password && (
-            <p style={{ color: 'crimson', marginTop: '6px' }}>{errors.password.message}</p>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
+          <div>
+            <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              {...register('email')}
+              className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-blue-500"
+            />
+            {errors.email && (
+              <p className="mt-2 text-sm text-red-600">{errors.email.message}</p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="password" className="mb-2 block text-sm font-medium text-slate-700">
+              Contraseña
+            </label>
+            <input
+              id="password"
+              type="password"
+              {...register('password')}
+              className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-blue-500"
+            />
+            {errors.password && (
+              <p className="mt-2 text-sm text-red-600">{errors.password.message}</p>
+            )}
+          </div>
+
+          {serverError && (
+            <div className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+              {serverError}
+            </div>
           )}
-        </div>
 
-        {serverError && (
-          <p style={{ color: 'crimson', marginBottom: '16px' }}>{serverError}</p>
-        )}
-
-        <button type="submit" disabled={isSubmitting} style={{ padding: '10px 16px' }}>
-          {isSubmitting ? 'Entrando...' : 'Entrar'}
-        </button>
-      </form>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-60"
+          >
+            {isSubmitting ? 'Entrando...' : 'Entrar'}
+          </button>
+        </form>
+      </div>
     </main>
   );
 }

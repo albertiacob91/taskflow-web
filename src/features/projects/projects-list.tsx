@@ -7,28 +7,22 @@ type ProjectsListProps = {
 
 export function ProjectsList({ projects }: ProjectsListProps) {
   return (
-    <div style={{ display: 'grid', gap: '12px' }}>
+    <div className="grid gap-4 md:grid-cols-2">
       {projects.map((project) => (
         <Link
           key={project.id}
           to={`/projects/${project.id}`}
-          style={{ textDecoration: 'none', color: 'inherit' }}
+          className="block rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
         >
-          <article
-            style={{
-              border: '1px solid #ddd',
-              borderRadius: '10px',
-              padding: '16px',
-            }}
-          >
-            <h3 style={{ margin: '0 0 8px' }}>{project.name}</h3>
-            <p style={{ margin: '0 0 8px', color: '#555' }}>
-              {project.description || 'Sin descripción'}
-            </p>
-            <small style={{ color: '#777' }}>
-              Creado: {new Date(project.createdAt).toLocaleString()}
-            </small>
-          </article>
+          <h3 className="mb-2 text-lg font-semibold text-slate-900">
+            {project.name}
+          </h3>
+          <p className="mb-4 text-sm text-slate-600">
+            {project.description || 'Sin descripción'}
+          </p>
+          <small className="text-xs text-slate-500">
+            Creado: {new Date(project.createdAt).toLocaleString()}
+          </small>
         </Link>
       ))}
     </div>
