@@ -1,6 +1,7 @@
 import type { Task } from '../../api/tasks-api';
 import { useUpdateTask } from './use-update-task';
 import { useDeleteTask } from './use-delete-task';
+import { CommentsPanel } from '../comments/comments-panel';
 
 type TasksListProps = {
   tasks: Task[];
@@ -105,6 +106,7 @@ export function TasksList({ tasks, projectId }: TasksListProps) {
               </small>
             )}
           </div>
+          <CommentsPanel taskId={task.id} />
         </article>
       ))}
     </div>
