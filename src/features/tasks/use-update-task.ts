@@ -9,6 +9,7 @@ type UpdateTaskInput = {
     title?: string;
     description?: string;
     dueDate?: string;
+    assignedToId?: string | null;
   };
 };
 
@@ -18,8 +19,11 @@ export function useUpdateTask(projectId: string) {
   return useMutation({
     mutationFn: ({ taskId, payload }: UpdateTaskInput) =>
       updateTask(taskId, payload),
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['tasks', projectId] });
+      queryClient.invalidateQueries({
+        queryKey: ['task', projectId, variables.taskId],
+      });
     },
   });
 }

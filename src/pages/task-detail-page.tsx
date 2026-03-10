@@ -3,10 +3,12 @@ import { useTaskDetail } from '../features/tasks/use-task-detail';
 import { CommentsPanel } from '../features/comments/comments-panel';
 import { useUpdateTask } from '../features/tasks/use-update-task';
 import { useDeleteTask } from '../features/tasks/use-delete-task';
+import { useProjectMembers } from '../features/projects/use-project-members';
 
 export function TaskDetailPage() {
   const navigate = useNavigate();
   const { projectId = '', taskId = '' } = useParams();
+  const { data: members } = useProjectMembers(projectId);
 
   const { data: task, isLoading, isError } = useTaskDetail(projectId, taskId);
   const updateTaskMutation = useUpdateTask(projectId);
@@ -20,6 +22,13 @@ export function TaskDetailPage() {
       payload: { status },
     });
   };
+
+  const handleAssignUser = async (userId: string) => {
+  await updateTaskMutation.mutateAsync({
+    taskId,
+    payload: { assignedToId: userId || null },
+  });
+};
 
   const handleDelete = async () => {
     const confirmed = window.confirm(
@@ -94,6 +103,24 @@ export function TaskDetailPage() {
                 <option value="TODO">TODO</option>
                 <option value="IN_PROGRESS">IN_PROGRESS</option>
                 <option value="DONE">DONE</option>
+              </select>
+            </label>
+
+            <label className="flex items-center gap-2">
+              <span className="font-medium text-slate-700">Asignado a:</span>
+
+              <select
+                value={task.assignedToId || ''}
+                onChange={(e) => handleAssignUser(e.target.value)}
+                className="rounded-lg border border-slate-300 px-3 py-2"
+              >
+                <option value="">Sin asignar</option>
+
+                {members?.map((member) => (
+                  <option key={member.id} value={member.id}>
+                    {member.name || member.email}
+                  </option>
+                ))}
               </select>
             </label>
 

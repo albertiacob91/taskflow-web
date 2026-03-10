@@ -8,6 +8,7 @@ export type Task = {
   priority: 'LOW' | 'MEDIUM' | 'HIGH';
   createdAt: string;
   dueDate?: string | null;
+  assignedToId?: string | null;
 };
 
 type TasksResponse = {
@@ -68,6 +69,7 @@ type UpdateTaskPayload = {
   title?: string;
   description?: string;
   dueDate?: string;
+  assignedToId?: string | null;
 };
 
 export async function updateTask(taskId: string, payload: UpdateTaskPayload) {
