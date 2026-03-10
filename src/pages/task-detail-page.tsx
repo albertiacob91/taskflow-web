@@ -5,11 +5,13 @@ import { useUpdateTask } from '../features/tasks/use-update-task';
 import { useDeleteTask } from '../features/tasks/use-delete-task';
 import { useProjectMembers } from '../features/projects/use-project-members';
 import { AttachmentsPanel } from '../features/attachments/attachments-panel';
+import { useProjectDetail } from '../features/projects/use-project-detail';
 
 export function TaskDetailPage() {
   const navigate = useNavigate();
   const { projectId = '', taskId = '' } = useParams();
   const { data: members } = useProjectMembers(projectId);
+  const { data: project } = useProjectDetail(projectId);
 
   const { data: task, isLoading, isError } = useTaskDetail(projectId, taskId);
   const updateTaskMutation = useUpdateTask(projectId);
@@ -66,12 +68,18 @@ export function TaskDetailPage() {
     <main className="min-h-screen bg-slate-50 px-4 py-10">
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-          <Link
-            to={`/projects/${projectId}`}
-            className="text-sm font-medium text-blue-600 hover:text-blue-700"
-          >
-            ← Volver al proyecto
-          </Link>
+          <div className="flex flex-col">
+            <Link
+              to={`/projects/${projectId}`}
+              className="text-sm font-medium text-blue-600 hover:text-blue-700"
+            >
+              ← {project?.name || 'Proyecto'}
+            </Link>
+
+            <span className="text-xs text-slate-500">
+              Detalle de tarea
+            </span>
+          </div>
 
           <button
             onClick={handleDelete}
@@ -83,7 +91,13 @@ export function TaskDetailPage() {
 
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="mb-5">
-            <h1 className="text-3xl font-bold text-slate-900">{task.title}</h1>
+            <h1 className="text-3xl font-bold text-slate-900">
+              {task.title}
+            </h1>
+
+            <p className="mt-2 text-sm text-slate-500">
+              Proyecto: {project?.name || '—'}
+            </p>
             <p className="mt-3 text-slate-600">
               {task.description || 'Sin descripción'}
             </p>
