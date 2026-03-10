@@ -4,6 +4,7 @@ import { useProjectTasks } from '../features/tasks/use-project-tasks';
 import { TasksList } from '../features/tasks/tasks-list';
 import { CreateTaskForm } from '../features/tasks/create-task-form';
 import { TaskFilters } from '../features/tasks/task-filters';
+import { ProjectMembersPanel } from '../features/projects/project-members-panel';
 
 export function ProjectDetailPage() {
   const { projectId = '' } = useParams();
@@ -46,6 +47,10 @@ export function ProjectDetailPage() {
           </p>
         </div>
 
+        <div className="mb-6">
+          <ProjectMembersPanel projectId={projectId} />
+        </div>
+        
         <TaskFilters
           status={status}
           priority={priority}

@@ -17,3 +17,16 @@ export async function getProjectMembers(projectId: string) {
   );
   return [data.owner, ...data.members];
 }
+
+type AddProjectMemberPayload = {
+  email: string;
+  role?: 'MEMBER' | 'VIEWER';
+};
+
+export async function addProjectMember(
+  projectId: string,
+  payload: AddProjectMemberPayload,
+) {
+  const { data } = await http.post(`/projects/${projectId}/members`, payload);
+  return data;
+}
