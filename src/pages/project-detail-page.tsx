@@ -6,10 +6,12 @@ import { CreateTaskForm } from '../features/tasks/create-task-form';
 import { TaskFilters } from '../features/tasks/task-filters';
 import { ProjectMembersPanel } from '../features/projects/project-members-panel';
 import { ProjectActivityPanel } from '../features/activity/project-activity-panel';
+import { useProjectDetail } from '../features/projects/use-project-detail';
 
 export function ProjectDetailPage() {
   const { projectId = '' } = useParams();
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const { data: project } = useProjectDetail(projectId);
 
   const [status, setStatus] = useState<'TODO' | 'IN_PROGRESS' | 'DONE' | ''>('');
   const [priority, setPriority] = useState<'LOW' | 'MEDIUM' | 'HIGH' | ''>('');
@@ -42,28 +44,13 @@ export function ProjectDetailPage() {
         </div>
 
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-slate-900">Proyecto</h1>
+          <h1 className="text-3xl font-bold text-slate-900">
+            {project?.name || 'Proyecto'}
+          </h1>
           <p className="mt-2 text-sm text-slate-600">
-            Tareas del proyecto seleccionado
+            {project?.description || 'Tareas del proyecto seleccionado'}
           </p>
         </div>
-
-        <div className="mb-6">
-          <ProjectMembersPanel projectId={projectId} />
-        </div>
-
-        <div className="mb-6">
-          <ProjectActivityPanel projectId={projectId} />
-        </div>
-
-        <TaskFilters
-          status={status}
-          priority={priority}
-          search={search}
-          onStatusChange={setStatus}
-          onPriorityChange={setPriority}
-          onSearchChange={setSearch}
-        />
 
         {showCreateForm && (
           <section className="mb-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -74,6 +61,15 @@ export function ProjectDetailPage() {
             />
           </section>
         )}
+
+        <TaskFilters
+          status={status}
+          priority={priority}
+          search={search}
+          onStatusChange={setStatus}
+          onPriorityChange={setPriority}
+          onSearchChange={setSearch}
+        />
 
         {isLoading && <p className="text-slate-600">Cargando tareas...</p>}
 
@@ -88,8 +84,18 @@ export function ProjectDetailPage() {
         )}
 
         {!isLoading && !isError && data && data.items.length > 0 && (
-          <TasksList tasks={data.items} projectId={projectId} />
+          <div className="mb-8">
+            <TasksList tasks={data.items} projectId={projectId} />
+          </div>
         )}
+
+        <div className="mb-6">
+          <ProjectMembersPanel projectId={projectId} />
+        </div>
+
+        <div className="mb-6">
+          <ProjectActivityPanel projectId={projectId} />
+        </div>
       </div>
     </main>
   );
