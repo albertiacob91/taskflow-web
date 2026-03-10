@@ -4,6 +4,7 @@ import { CommentsPanel } from '../features/comments/comments-panel';
 import { useUpdateTask } from '../features/tasks/use-update-task';
 import { useDeleteTask } from '../features/tasks/use-delete-task';
 import { useProjectMembers } from '../features/projects/use-project-members';
+import { AttachmentsPanel } from '../features/attachments/attachments-panel';
 
 export function TaskDetailPage() {
   const navigate = useNavigate();
@@ -138,6 +139,7 @@ export function TaskDetailPage() {
           </div>
 
           <CommentsPanel taskId={task.id} />
+          <AttachmentsPanel taskId={task.id} />
         </section>
       </div>
     </main>
