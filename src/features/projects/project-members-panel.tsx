@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useProjectMembers } from './use-project-members';
 import { useAddProjectMember } from './use-add-project-member';
 import { useRemoveProjectMember } from './use-remove-project-member';
+import { Avatar } from '../../components/avatar';
 
 type ProjectMembersPanelProps = {
   projectId: string;
@@ -57,9 +58,14 @@ export function ProjectMembersPanel({ projectId }: ProjectMembersPanelProps) {
 
   return (
     <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      <h2 className="mb-4 text-xl font-semibold text-slate-900">Miembros del proyecto</h2>
+      <h2 className="mb-4 text-xl font-semibold text-slate-900">
+        Miembros del proyecto
+      </h2>
 
-      <form onSubmit={handleSubmit} className="mb-6 grid gap-3 md:grid-cols-[1fr_180px_auto]">
+      <form
+        onSubmit={handleSubmit}
+        className="mb-6 grid gap-3 md:grid-cols-[1fr_180px_auto]"
+      >
         <input
           type="email"
           value={email}
@@ -105,11 +111,15 @@ export function ProjectMembersPanel({ projectId }: ProjectMembersPanelProps) {
               key={member.id}
               className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"
             >
-              <div>
-                <p className="font-medium text-slate-900">
-                  {member.name || 'Sin nombre'}
-                </p>
-                <p className="text-sm text-slate-600">{member.email}</p>
+              <div className="flex items-center gap-3">
+                <Avatar name={member.name} email={member.email} />
+
+                <div>
+                  <p className="font-medium text-slate-900">
+                    {member.name || 'Sin nombre'}
+                  </p>
+                  <p className="text-sm text-slate-600">{member.email}</p>
+                </div>
               </div>
 
               <button
