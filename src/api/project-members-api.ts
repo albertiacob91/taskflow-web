@@ -30,3 +30,11 @@ export async function addProjectMember(
   const { data } = await http.post(`/projects/${projectId}/members`, payload);
   return data;
 }
+
+export async function removeProjectMember(
+  projectId: string,
+  memberId: string,
+) {
+  const { data } = await http.delete(`/projects/${projectId}/members/${memberId}`);
+  return data;
+}

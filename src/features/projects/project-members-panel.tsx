@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useProjectMembers } from './use-project-members';
 import { useAddProjectMember } from './use-add-project-member';
+import { useRemoveProjectMember } from './use-remove-project-member';
 
 type ProjectMembersPanelProps = {
   projectId: string;
@@ -9,6 +10,7 @@ type ProjectMembersPanelProps = {
 export function ProjectMembersPanel({ projectId }: ProjectMembersPanelProps) {
   const { data: members, isLoading, isError } = useProjectMembers(projectId);
   const addMemberMutation = useAddProjectMember(projectId);
+  const removeMemberMutation = useRemoveProjectMember(projectId);
 
   const [email, setEmail] = useState('');
   const [role, setRole] = useState<'MEMBER' | 'VIEWER'>('MEMBER');
@@ -38,6 +40,19 @@ export function ProjectMembersPanel({ projectId }: ProjectMembersPanelProps) {
         Array.isArray(message) ? message.join(', ') : String(message),
       );
     }
+  };
+
+  const handleRemoveMember = async (memberId: string, label: string) => {
+    const confirmed = window.confirm(
+      `¿Seguro que quieres eliminar a "${label}" del proyecto?`,
+    );
+
+    if (!confirmed) return;
+
+    await removeMemberMutation.mutateAsync({
+      projectId,
+      memberId,
+    });
   };
 
   return (
@@ -88,12 +103,25 @@ export function ProjectMembersPanel({ projectId }: ProjectMembersPanelProps) {
           {members.map((member) => (
             <article
               key={member.id}
-              className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"
+              className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"
             >
-              <p className="font-medium text-slate-900">
-                {member.name || 'Sin nombre'}
-              </p>
-              <p className="text-sm text-slate-600">{member.email}</p>
+              <div>
+                <p className="font-medium text-slate-900">
+                  {member.name || 'Sin nombre'}
+                </p>
+                <p className="text-sm text-slate-600">{member.email}</p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() =>
+                  handleRemoveMember(member.id, member.name || member.email)
+                }
+                disabled={removeMemberMutation.isPending}
+                className="rounded-xl border border-red-200 bg-white px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50 disabled:opacity-60"
+              >
+                Eliminar
+              </button>
             </article>
           ))}
         </div>
