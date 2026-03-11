@@ -1,129 +1,147 @@
 # TaskFlow Web
 
-Frontend web for **TaskFlow**, a project and task management application
-built with **React**, **TypeScript**, and **Vite**.
+Frontend de **TaskFlow**, una aplicación de gestión de proyectos y tareas construida con **React**, **TypeScript** y **Vite**.
 
-This project consumes the **TaskFlow API** and provides a modern
-interface for authentication, project management, task tracking,
-comments, and filtering.
+Consume la API de `taskflow-api` y ofrece una interfaz moderna para autenticación, proyectos, tareas, comentarios, adjuntos, miembros, actividad y asignación de usuarios.
 
-------------------------------------------------------------------------
+---
 
-## Features
+## Demo funcional
 
--   Login with JWT authentication
--   Protected routes
--   Projects dashboard
--   Create projects
--   Project detail page
--   Task listing by project
--   Create tasks
--   Update task status
--   Delete tasks
--   Task filtering by status, priority and search
--   Task comments
--   Edit and delete comments
--   Environment-based API configuration
+### Login
+![Login](./public/screenshots/login.png)
 
-------------------------------------------------------------------------
+### Dashboard
+![Dashboard](./public/screenshots/dashboard.png)
 
-## Tech Stack
+### Project Detail
+![Project Detail](./public/screenshots/project-detail.png)
+
+### Task Detail
+![Task Detail](./public/screenshots/task-detail.png)
+
+---
+
+## Funcionalidades
+
+- Autenticación con JWT
+- Rutas protegidas
+- Dashboard de proyectos
+- Crear proyectos
+- Gestión de miembros del proyecto
+- Crear tareas
+- Editar estado de tareas
+- Eliminar tareas
+- Filtrar tareas por estado, prioridad y búsqueda
+- Asignar tareas a miembros del proyecto
+- Comentarios en tareas
+- Editar y borrar comentarios
+- Adjuntos en tareas
+- Timeline de actividad del proyecto
+- Configuración mediante variables de entorno
+
+---
+
+## Stack tecnológico
 
 ### Frontend
+- React
+- TypeScript
+- Vite
 
--   React
--   TypeScript
--   Vite
+### Estado y datos
+- TanStack Query
+- Axios
 
-### State & Data Fetching
+### Estilos
+- Tailwind CSS
 
--   TanStack Query
--   Axios
+### Routing
+- React Router
 
-### Forms & Validation
+---
 
--   React Hook Form
--   Zod
+## Arquitectura
 
-### Styling
+```txt
+src/
+ ├── api/
+ ├── app/
+ ├── components/
+ ├── features/
+ │    ├── projects
+ │    ├── tasks
+ │    ├── comments
+ │    └── activity
+ ├── layouts/
+ ├── pages/
+ ├── routes/
+ └── main.tsx
+```
 
--   Tailwind CSS
+---
 
-------------------------------------------------------------------------
+## Relación con el backend
 
-## Project Structure
+Este frontend consume la API del proyecto:
 
-    src/
-     ├── api/         # HTTP clients and API calls
-     ├── components/  # Shared UI components
-     ├── features/    # Domain features (projects, tasks, comments)
-     ├── pages/       # Route pages
-     ├── routes/      # Router configuration
-     ├── utils/       # Utilities
-     └── main.tsx     # App entry point
+`taskflow-api`
 
-------------------------------------------------------------------------
+Repositorio:
 
-## Environment Variables
+`https://github.com/albertiacob91/taskflow-api`
 
-Create a `.env.local` file in the project root:
+---
 
-    VITE_API_BASE_URL=http://localhost:3000
+## Variables de entorno
 
-You can use `.env.example` as reference.
+Crear archivo `.env.local`:
 
-------------------------------------------------------------------------
+```env
+VITE_API_BASE_URL=http://localhost:3000
+```
 
-## Installation
+---
 
-``` bash
+## Instalación
+
+```bash
 git clone https://github.com/albertiacob91/taskflow-web.git
 cd taskflow-web
 npm install
 ```
 
-------------------------------------------------------------------------
+---
 
-## Run in development
+## Desarrollo
 
-``` bash
+```bash
 npm run dev
 ```
 
-App will run at:
+Aplicación disponible en:
 
-    http://localhost:5173
+`http://localhost:5173`
 
-------------------------------------------------------------------------
+---
 
 ## Build
 
-``` bash
+```bash
 npm run build
 ```
 
-------------------------------------------------------------------------
+---
 
-## Related Project
+## Estado del proyecto
 
-This frontend consumes the backend API from **TaskFlow API**.
+Versión actual: `v0.21.0`
 
-Repository:
+Proyecto orientado a portfolio profesional full-stack.
 
-    https://github.com/albertiacob91/taskflow-api
+---
 
-------------------------------------------------------------------------
+## Autor
 
-## Current Version
-
-    v0.10.0
-
-------------------------------------------------------------------------
-
-## Author
-
-**Albert Luis Iacob Istrati**
-
-GitHub:
-
-    https://github.com/albertiacob91
+Albert Luis Iacob Istrati  
+`https://github.com/albertiacob91`
