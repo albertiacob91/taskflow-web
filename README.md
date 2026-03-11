@@ -15,7 +15,10 @@ Consume la API de `taskflow-api` y ofrece una interfaz moderna para autenticaci√
 ![Dashboard](./public/screenshots/dashboard.png)
 
 ### Project Detail
-![Project Detail](./public/screenshots/project-detail.png)
+![Project Detail](./public/screenshots/project-detail-1.png)
+
+### Project Detail
+![Project Detail](./public/screenshots/project-detail-2.png)
 
 ### Task Detail
 ![Task Detail](./public/screenshots/task-detail.png)
