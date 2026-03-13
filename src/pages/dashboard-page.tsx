@@ -1,19 +1,11 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { removeAccessToken } from '../utils/auth';
 import { useProjects } from '../features/projects/use-projects';
 import { ProjectsList } from '../features/projects/projects-list';
 import { CreateProjectForm } from '../features/projects/create-project-form';
 
 export function DashboardPage() {
-  const navigate = useNavigate();
   const { data, isLoading, isError } = useProjects();
   const [showCreateForm, setShowCreateForm] = useState(false);
-
-  const handleLogout = () => {
-    removeAccessToken();
-    navigate('/login', { replace: true });
-  };
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 dark:bg-slate-950">
@@ -37,13 +29,6 @@ export function DashboardPage() {
               className="rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
             >
               {showCreateForm ? 'Cerrar formulario' : 'Nuevo proyecto'}
-            </button>
-
-            <button
-              onClick={handleLogout}
-              className="rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
-            >
-              Cerrar sesión
             </button>
           </div>
         </header>

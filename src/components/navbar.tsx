@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { applyTheme, getPreferredTheme, type Theme } from '../utils/theme';
+import { removeAccessToken } from '../utils/auth';
 
 export function Navbar() {
   const [theme, setTheme] = useState<Theme>('light');
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTheme(getPreferredTheme());
@@ -13,6 +15,11 @@ export function Navbar() {
     const nextTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(nextTheme);
     applyTheme(nextTheme);
+  };
+
+  const handleLogout = () => {
+    removeAccessToken();
+    navigate('/login', { replace: true });
   };
 
   return (
@@ -45,6 +52,14 @@ export function Navbar() {
             className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
           >
             {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="rounded-xl border border-red-500 bg-white px-3 py-2 text-sm font-semibold text-red-500 transition hover:bg-red-500 hover:text-white dark:border-red-400 dark:bg-slate-900 dark:text-red-400 dark:hover:bg-red-500 dark:hover:text-white"
+          >
+            Cerrar sesión
           </button>
         </nav>
       </div>
