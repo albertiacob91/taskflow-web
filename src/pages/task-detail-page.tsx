@@ -27,11 +27,11 @@ export function TaskDetailPage() {
   };
 
   const handleAssignUser = async (userId: string) => {
-  await updateTaskMutation.mutateAsync({
-    taskId,
-    payload: { assignedToId: userId || null },
-  });
-};
+    await updateTaskMutation.mutateAsync({
+      taskId,
+      payload: { assignedToId: userId || null },
+    });
+  };
 
   const handleDelete = async () => {
     const confirmed = window.confirm(
@@ -46,9 +46,9 @@ export function TaskDetailPage() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-slate-50 px-4 py-10">
+      <main className="min-h-screen bg-slate-50 px-4 py-10 dark:bg-slate-950">
         <div className="mx-auto max-w-4xl">
-          <p className="text-slate-600">Cargando tarea...</p>
+          <p className="text-slate-600 dark:text-slate-400">Cargando tarea...</p>
         </div>
       </main>
     );
@@ -56,56 +56,59 @@ export function TaskDetailPage() {
 
   if (isError || !task) {
     return (
-      <main className="min-h-screen bg-slate-50 px-4 py-10">
+      <main className="min-h-screen bg-slate-50 px-4 py-10 dark:bg-slate-950">
         <div className="mx-auto max-w-4xl">
-          <p className="text-red-600">No se pudo cargar la tarea.</p>
+          <p className="text-red-600 dark:text-red-400">No se pudo cargar la tarea.</p>
         </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-10">
+    <main className="min-h-screen bg-slate-50 px-4 py-10 dark:bg-slate-950">
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-col">
             <Link
               to={`/projects/${projectId}`}
-              className="text-sm font-medium text-blue-600 hover:text-blue-700"
+              className="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
             >
               ← {project?.name || 'Proyecto'}
             </Link>
 
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-slate-500 dark:text-slate-400">
               Detalle de tarea
             </span>
           </div>
 
           <button
             onClick={handleDelete}
-            className="rounded-xl border border-red-200 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50"
+            className="rounded-xl border border-red-200 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50 dark:border-red-900 dark:bg-slate-900 dark:text-red-400 dark:hover:bg-red-950"
           >
             Borrar tarea
           </button>
         </div>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
           <div className="mb-5">
-            <h1 className="text-3xl font-bold text-slate-900">
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
               {task.title}
             </h1>
 
-            <p className="mt-2 text-sm text-slate-500">
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
               Proyecto: {project?.name || '—'}
             </p>
-            <p className="mt-3 text-slate-600">
+
+            <p className="mt-3 text-slate-600 dark:text-slate-400">
               {task.description || 'Sin descripción'}
             </p>
           </div>
 
-          <div className="mb-6 flex flex-wrap gap-4 text-sm text-slate-600">
+          <div className="mb-6 flex flex-wrap gap-4 text-sm text-slate-600 dark:text-slate-400">
             <label className="flex items-center gap-2">
-              <span className="font-medium text-slate-700">Estado:</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">
+                Estado:
+              </span>
               <select
                 value={task.status}
                 onChange={(e) =>
@@ -113,7 +116,7 @@ export function TaskDetailPage() {
                     e.target.value as 'TODO' | 'IN_PROGRESS' | 'DONE',
                   )
                 }
-                className="rounded-lg border border-slate-300 px-3 py-2"
+                className="rounded-lg border border-slate-300 px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
               >
                 <option value="TODO">TODO</option>
                 <option value="IN_PROGRESS">IN_PROGRESS</option>
@@ -122,12 +125,14 @@ export function TaskDetailPage() {
             </label>
 
             <label className="flex items-center gap-2">
-              <span className="font-medium text-slate-700">Asignado a:</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">
+                Asignado a:
+              </span>
 
               <select
                 value={task.assignedToId || ''}
                 onChange={(e) => handleAssignUser(e.target.value)}
-                className="rounded-lg border border-slate-300 px-3 py-2"
+                className="rounded-lg border border-slate-300 px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
               >
                 <option value="">Sin asignar</option>
 
@@ -140,13 +145,17 @@ export function TaskDetailPage() {
             </label>
 
             <p>
-              <span className="font-medium text-slate-700">Prioridad:</span>{' '}
+              <span className="font-medium text-slate-700 dark:text-slate-300">
+                Prioridad:
+              </span>{' '}
               {task.priority}
             </p>
 
             {task.dueDate && (
               <p>
-                <span className="font-medium text-slate-700">Fecha límite:</span>{' '}
+                <span className="font-medium text-slate-700 dark:text-slate-300">
+                  Fecha límite:
+                </span>{' '}
                 {new Date(task.dueDate).toLocaleString()}
               </p>
             )}

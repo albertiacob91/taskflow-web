@@ -30,44 +30,50 @@ export function ProjectActivityPanel({
   const { data, isLoading, isError } = useProjectActivity(projectId);
 
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      <h2 className="mb-4 text-xl font-semibold text-slate-900">
+    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <h2 className="mb-4 text-xl font-semibold text-slate-900 dark:text-slate-100">
         Actividad del proyecto
       </h2>
 
-      {isLoading && <p className="text-slate-600">Cargando actividad...</p>}
+      {isLoading && (
+        <p className="text-slate-600 dark:text-slate-400">
+          Cargando actividad...
+        </p>
+      )}
 
       {isError && (
-        <p className="text-red-600">No se pudo cargar la actividad.</p>
+        <p className="text-red-600 dark:text-red-400">
+          No se pudo cargar la actividad.
+        </p>
       )}
 
       {!isLoading && !isError && data?.items.length === 0 && (
-        <p className="text-slate-600">No hay actividad todavía.</p>
+        <p className="text-slate-600 dark:text-slate-400">
+          No hay actividad todavía.
+        </p>
       )}
 
       {!isLoading && !isError && data && data.items.length > 0 && (
         <div className="max-h-72 overflow-y-auto pr-2">
-            <div className="grid gap-3">
-          {[...data.items].reverse().map((item) => (
-            <article
-              key={item.id}
-              className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"
-            >
-              <p className="font-medium text-slate-900">
-                {formatActivityLabel(item.type)}
-              </p>
+          <div className="grid gap-3">
+            {[...data.items].reverse().map((item) => (
+              <article
+                key={item.id}
+                className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-800"
+              >
+                <p className="font-medium text-slate-900 dark:text-slate-100">
+                  {formatActivityLabel(item.type)}
+                </p>
 
-              <p className="mt-1 text-sm text-slate-600">
-                {item.actor?.name ||
-                  item.actor?.email ||
-                  'Usuario'}{' '}
-                · {new Date(item.createdAt).toLocaleString()}
-              </p>
-            </article>
-          ))}
-            </div>
-  </div>
-)}
+                <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                  {item.actor?.name || item.actor?.email || 'Usuario'} ·{' '}
+                  {new Date(item.createdAt).toLocaleString()}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

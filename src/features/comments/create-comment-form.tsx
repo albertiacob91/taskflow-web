@@ -51,19 +51,20 @@ export function CreateCommentForm({ taskId }: CreateCommentFormProps) {
         {...register('content', { required: true })}
         rows={3}
         placeholder="Escribe un comentario..."
-        style={{
-          display: 'block',
-          width: '100%',
-          padding: '8px',
-          marginBottom: '12px',
-        }}
+        className="mb-3 block w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-400"
       />
 
       {serverError && (
-        <p style={{ color: 'crimson', marginBottom: '12px' }}>{serverError}</p>
+        <p className="mb-3 text-sm text-red-600 dark:text-red-400">
+          {serverError}
+        </p>
       )}
 
-      <button type="submit" disabled={isSubmitting} style={{ padding: '8px 12px' }}>
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-60"
+      >
         {isSubmitting ? 'Comentando...' : 'Añadir comentario'}
       </button>
     </form>

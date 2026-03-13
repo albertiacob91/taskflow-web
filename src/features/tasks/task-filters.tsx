@@ -16,53 +16,46 @@ export function TaskFilters({
   onSearchChange,
 }: TaskFiltersProps) {
   return (
-    <section
-      style={{
-        border: '1px solid #ddd',
-        borderRadius: '10px',
-        padding: '16px',
-        marginBottom: '24px',
-      }}
-    >
-      <h2 style={{ marginTop: 0, marginBottom: '16px' }}>Filtros</h2>
+    <section className="mb-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <h2 className="mb-4 text-lg font-semibold text-slate-900 dark:text-slate-100">
+        Filtros
+      </h2>
 
-      <div
-        style={{
-          display: 'grid',
-          gap: '12px',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-        }}
-      >
+      <div className="grid gap-4 md:grid-cols-3">
         <div>
-          <label htmlFor="search">Buscar</label>
+          <label
+            htmlFor="search"
+            className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
+          >
+            Buscar
+          </label>
+
           <input
             id="search"
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Buscar por título o descripción"
-            style={{
-              display: 'block',
-              width: '100%',
-              padding: '8px',
-              marginTop: '6px',
-            }}
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
           />
         </div>
 
         <div>
-          <label htmlFor="status">Estado</label>
+          <label
+            htmlFor="status"
+            className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
+          >
+            Estado
+          </label>
+
           <select
             id="status"
             value={status}
             onChange={(e) =>
-            onStatusChange(e.target.value as 'TODO' | 'IN_PROGRESS' | 'DONE' | '')
+              onStatusChange(
+                e.target.value as 'TODO' | 'IN_PROGRESS' | 'DONE' | '',
+              )
             }
-            style={{
-              display: 'block',
-              width: '100%',
-              padding: '8px',
-              marginTop: '6px',
-            }}
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
           >
             <option value="">Todos</option>
             <option value="TODO">TODO</option>
@@ -72,19 +65,22 @@ export function TaskFilters({
         </div>
 
         <div>
-          <label htmlFor="priority">Prioridad</label>
+          <label
+            htmlFor="priority"
+            className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
+          >
+            Prioridad
+          </label>
+
           <select
             id="priority"
             value={priority}
             onChange={(e) =>
-            onPriorityChange(e.target.value as 'LOW' | 'MEDIUM' | 'HIGH' | '')
+              onPriorityChange(
+                e.target.value as 'LOW' | 'MEDIUM' | 'HIGH' | '',
+              )
             }
-            style={{
-              display: 'block',
-              width: '100%',
-              padding: '8px',
-              marginTop: '6px',
-            }}
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
           >
             <option value="">Todas</option>
             <option value="LOW">LOW</option>

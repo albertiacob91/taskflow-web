@@ -46,7 +46,7 @@ export function CreateTaskForm({
     try {
       setServerError('');
 
-            await createTaskMutation.mutateAsync({
+      await createTaskMutation.mutateAsync({
         title: values.title,
         description: values.description,
         status: values.status,
@@ -59,7 +59,7 @@ export function CreateTaskForm({
 
       reset();
       onCreated?.();
-        } catch (error: any) {
+    } catch (error: any) {
       const message =
         error?.response?.data?.message ||
         error?.response?.data?.error ||
@@ -73,34 +73,51 @@ export function CreateTaskForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <div style={{ marginBottom: '12px' }}>
-        <label htmlFor="title">Título</label>
+      <div className="mb-3">
+        <label
+          htmlFor="title"
+          className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
+        >
+          Título
+        </label>
         <input
           id="title"
           {...register('title')}
-          style={{ display: 'block', width: '100%', padding: '8px', marginTop: '6px' }}
+          className="block w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
         />
         {errors.title && (
-          <p style={{ color: 'crimson', marginTop: '6px' }}>{errors.title.message}</p>
+          <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+            {errors.title.message}
+          </p>
         )}
       </div>
 
-      <div style={{ marginBottom: '12px' }}>
-        <label htmlFor="description">Descripción</label>
+      <div className="mb-3">
+        <label
+          htmlFor="description"
+          className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
+        >
+          Descripción
+        </label>
         <textarea
           id="description"
           {...register('description')}
           rows={4}
-          style={{ display: 'block', width: '100%', padding: '8px', marginTop: '6px' }}
+          className="block w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
         />
       </div>
 
-      <div style={{ marginBottom: '12px' }}>
-        <label htmlFor="status">Estado</label>
+      <div className="mb-3">
+        <label
+          htmlFor="status"
+          className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
+        >
+          Estado
+        </label>
         <select
           id="status"
           {...register('status')}
-          style={{ display: 'block', width: '100%', padding: '8px', marginTop: '6px' }}
+          className="block w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
         >
           <option value="TODO">TODO</option>
           <option value="IN_PROGRESS">IN_PROGRESS</option>
@@ -108,12 +125,17 @@ export function CreateTaskForm({
         </select>
       </div>
 
-      <div style={{ marginBottom: '12px' }}>
-        <label htmlFor="priority">Prioridad</label>
+      <div className="mb-3">
+        <label
+          htmlFor="priority"
+          className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
+        >
+          Prioridad
+        </label>
         <select
           id="priority"
           {...register('priority')}
-          style={{ display: 'block', width: '100%', padding: '8px', marginTop: '6px' }}
+          className="block w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
         >
           <option value="LOW">LOW</option>
           <option value="MEDIUM">MEDIUM</option>
@@ -121,21 +143,32 @@ export function CreateTaskForm({
         </select>
       </div>
 
-      <div style={{ marginBottom: '12px' }}>
-        <label htmlFor="dueDate">Fecha límite</label>
+      <div className="mb-3">
+        <label
+          htmlFor="dueDate"
+          className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
+        >
+          Fecha límite
+        </label>
         <input
           id="dueDate"
           type="datetime-local"
           {...register('dueDate')}
-          style={{ display: 'block', width: '100%', padding: '8px', marginTop: '6px' }}
+          className="block w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
         />
       </div>
 
       {serverError && (
-        <p style={{ color: 'crimson', marginBottom: '12px' }}>{serverError}</p>
+        <p className="mb-3 text-sm text-red-600 dark:text-red-400">
+          {serverError}
+        </p>
       )}
 
-      <button type="submit" disabled={isSubmitting} style={{ padding: '10px 16px' }}>
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-60"
+      >
         {isSubmitting ? 'Creando...' : 'Crear tarea'}
       </button>
     </form>

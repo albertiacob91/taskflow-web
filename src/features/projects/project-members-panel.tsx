@@ -57,8 +57,8 @@ export function ProjectMembersPanel({ projectId }: ProjectMembersPanelProps) {
   };
 
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      <h2 className="mb-4 text-xl font-semibold text-slate-900">
+    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <h2 className="mb-4 text-xl font-semibold text-slate-900 dark:text-slate-100">
         Miembros del proyecto
       </h2>
 
@@ -71,13 +71,13 @@ export function ProjectMembersPanel({ projectId }: ProjectMembersPanelProps) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email del usuario"
-          className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none focus:border-blue-500"
+          className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
         />
 
         <select
           value={role}
           onChange={(e) => setRole(e.target.value as 'MEMBER' | 'VIEWER')}
-          className="rounded-xl border border-slate-300 px-3 py-2.5 outline-none focus:border-blue-500"
+          className="rounded-xl border border-slate-300 px-3 py-2.5 outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
         >
           <option value="MEMBER">MEMBER</option>
           <option value="VIEWER">VIEWER</option>
@@ -93,15 +93,21 @@ export function ProjectMembersPanel({ projectId }: ProjectMembersPanelProps) {
       </form>
 
       {serverError && (
-        <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+        <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300">
           {serverError}
         </div>
       )}
 
-      {isLoading && <p className="text-slate-600">Cargando miembros...</p>}
+      {isLoading && (
+        <p className="text-slate-600 dark:text-slate-400">
+          Cargando miembros...
+        </p>
+      )}
 
       {isError && (
-        <p className="text-red-600">No se pudieron cargar los miembros.</p>
+        <p className="text-red-600 dark:text-red-400">
+          No se pudieron cargar los miembros.
+        </p>
       )}
 
       {!isLoading && !isError && members && (
@@ -109,16 +115,18 @@ export function ProjectMembersPanel({ projectId }: ProjectMembersPanelProps) {
           {members.map((member) => (
             <article
               key={member.id}
-              className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"
+              className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-800"
             >
               <div className="flex items-center gap-3">
                 <Avatar name={member.name} email={member.email} />
 
                 <div>
-                  <p className="font-medium text-slate-900">
+                  <p className="font-medium text-slate-900 dark:text-slate-100">
                     {member.name || 'Sin nombre'}
                   </p>
-                  <p className="text-sm text-slate-600">{member.email}</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                    {member.email}
+                  </p>
                 </div>
               </div>
 
@@ -128,7 +136,7 @@ export function ProjectMembersPanel({ projectId }: ProjectMembersPanelProps) {
                   handleRemoveMember(member.id, member.name || member.email)
                 }
                 disabled={removeMemberMutation.isPending}
-                className="rounded-xl border border-red-200 bg-white px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50 disabled:opacity-60"
+                className="rounded-xl border border-red-200 bg-white px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50 disabled:opacity-60 dark:border-red-900 dark:bg-slate-900 dark:text-red-400 dark:hover:bg-red-950"
               >
                 Eliminar
               </button>

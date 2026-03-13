@@ -40,13 +40,13 @@ export function TasksList({ tasks, projectId }: TasksListProps) {
       {tasks.map((task) => (
         <article
           key={task.id}
-          className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+          className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"
         >
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
               <Link
                 to={`/projects/${projectId}/tasks/${task.id}`}
-                className="block text-lg font-semibold text-slate-900 transition hover:text-blue-600"
+                className="block text-lg font-semibold text-slate-900 transition hover:text-blue-600 dark:text-slate-100 dark:hover:text-blue-400"
               >
                 {task.title}
               </Link>
@@ -56,7 +56,7 @@ export function TasksList({ tasks, projectId }: TasksListProps) {
                 <PriorityBadge priority={task.priority} />
               </div>
 
-              <p className="mt-3 text-sm text-slate-600">
+              <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
                 {task.description || 'Sin descripción'}
               </p>
             </div>
@@ -64,15 +64,17 @@ export function TasksList({ tasks, projectId }: TasksListProps) {
             <button
               onClick={() => handleDeleteTask(task.id, task.title)}
               disabled={isBusy}
-              className="rounded-xl border border-red-200 bg-white px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50 disabled:opacity-60"
+              className="rounded-xl border border-red-200 bg-white px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50 disabled:opacity-60 dark:border-red-900 dark:bg-slate-900 dark:text-red-400 dark:hover:bg-red-950"
             >
               Borrar
             </button>
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-slate-600">
+          <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
             <label className="flex items-center gap-2">
-              <span className="font-medium text-slate-700">Estado:</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">
+                Estado:
+              </span>
               <select
                 value={task.status}
                 onChange={(e) =>
@@ -82,7 +84,7 @@ export function TasksList({ tasks, projectId }: TasksListProps) {
                   )
                 }
                 disabled={isBusy}
-                className="rounded-lg border border-slate-300 px-3 py-2"
+                className="rounded-lg border border-slate-300 px-3 py-2 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
               >
                 <option value="TODO">TODO</option>
                 <option value="IN_PROGRESS">IN_PROGRESS</option>
@@ -91,7 +93,7 @@ export function TasksList({ tasks, projectId }: TasksListProps) {
             </label>
 
             {task.dueDate && (
-              <small className="text-slate-500">
+              <small className="text-slate-500 dark:text-slate-400">
                 Vence: {new Date(task.dueDate).toLocaleDateString()}
               </small>
             )}
