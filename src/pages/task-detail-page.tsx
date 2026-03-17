@@ -6,10 +6,13 @@ import { useDeleteTask } from '../features/tasks/use-delete-task';
 import { useProjectMembers } from '../features/projects/use-project-members';
 import { AttachmentsPanel } from '../features/attachments/attachments-panel';
 import { useProjectDetail } from '../features/projects/use-project-detail';
+import { useProjectRealtime } from '../features/realtime/use-project-realtime';
 
 export function TaskDetailPage() {
   const navigate = useNavigate();
   const { projectId = '', taskId = '' } = useParams();
+  useProjectRealtime(projectId);
+
   const { data: members } = useProjectMembers(projectId);
   const { data: project } = useProjectDetail(projectId);
 

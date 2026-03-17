@@ -9,9 +9,12 @@ import { useProjectDetail } from '../features/projects/use-project-detail';
 import { KanbanBoard } from '../features/tasks/kanban-board';
 import { TasksViewToggle } from '../features/tasks/tasks-view-toggle';
 import { TasksList } from '../features/tasks/tasks-list';
+import { useProjectRealtime } from '../features/realtime/use-project-realtime';
 
 export function ProjectDetailPage() {
   const { projectId = '' } = useParams();
+  useProjectRealtime(projectId);
+  
   const [showCreateForm, setShowCreateForm] = useState(false);
   const { data: project } = useProjectDetail(projectId);
 
