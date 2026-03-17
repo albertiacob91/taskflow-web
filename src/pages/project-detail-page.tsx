@@ -10,11 +10,13 @@ import { KanbanBoard } from '../features/tasks/kanban-board';
 import { TasksViewToggle } from '../features/tasks/tasks-view-toggle';
 import { TasksList } from '../features/tasks/tasks-list';
 import { useProjectRealtime } from '../features/realtime/use-project-realtime';
+import { useProjectPresence } from '../features/realtime/use-project-presence';
 
 export function ProjectDetailPage() {
   const { projectId = '' } = useParams();
   useProjectRealtime(projectId);
-  
+  const presence = useProjectPresence(projectId);
+
   const [showCreateForm, setShowCreateForm] = useState(false);
   const { data: project } = useProjectDetail(projectId);
 
@@ -65,6 +67,10 @@ export function ProjectDetailPage() {
 
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
             {project?.description || 'Tareas del proyecto seleccionado'}
+          </p>
+
+          <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+            {presence} usuario{presence !== 1 ? 's' : ''} viendo este proyecto
           </p>
         </div>
 
