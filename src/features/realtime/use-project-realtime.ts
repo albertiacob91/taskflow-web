@@ -18,12 +18,14 @@ export function useProjectRealtime(projectId: string) {
       queryClient.invalidateQueries({
         predicate: (query) =>
           Array.isArray(query.queryKey) &&
-          query.queryKey[0] === 'task-comments',
+          query.queryKey[0] === 'comments',
       });
     };
 
     const invalidateActivity = () => {
-      queryClient.invalidateQueries({ queryKey: ['project-activity', projectId] });
+      queryClient.invalidateQueries({
+        queryKey: ['project-activity', projectId],
+      });
     };
 
     socket.on('commentCreated', invalidateComments);
