@@ -7,11 +7,18 @@ import { ProjectMembersPanel } from '../features/projects/project-members-panel'
 import { ProjectActivityPanel } from '../features/activity/project-activity-panel';
 import { useProjectDetail } from '../features/projects/use-project-detail';
 import { KanbanBoard } from '../features/tasks/kanban-board';
+import { TasksViewToggle } from '../features/tasks/tasks-view-toggle';
+import { TasksList } from '../features/tasks/tasks-list';
 
 export function ProjectDetailPage() {
   const { projectId = '' } = useParams();
   const [showCreateForm, setShowCreateForm] = useState(false);
   const { data: project } = useProjectDetail(projectId);
+
+  const [view, setView] = useState<'list' | 'kanban'>(() => {
+    const stored = localStorage.getItem('tasks-view');
+    return stored === 'kanban' ? 'kanban' : 'list';
+  });
 
   const [status, setStatus] = useState<'TODO' | 'IN_PROGRESS' | 'DONE' | ''>('');
   const [priority, setPriority] = useState<'LOW' | 'MEDIUM' | 'HIGH' | ''>('');
@@ -23,6 +30,11 @@ export function ProjectDetailPage() {
     priority: priority || undefined,
     search: search || undefined,
   });
+
+  const handleViewChange = (nextView: 'list' | 'kanban') => {
+    setView(nextView);
+    localStorage.setItem('tasks-view', nextView);
+  };
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 dark:bg-slate-950">
@@ -75,6 +87,8 @@ export function ProjectDetailPage() {
           onSearchChange={setSearch}
         />
 
+        <TasksViewToggle view={view} onChange={handleViewChange} />
+
         {isLoading && (
           <p className="text-slate-600 dark:text-slate-400">
             Cargando tareas...
@@ -95,7 +109,11 @@ export function ProjectDetailPage() {
 
         {!isLoading && !isError && data && data.items.length > 0 && (
           <div className="mb-8">
-            <KanbanBoard tasks={data.items} projectId={projectId} />
+            {view === 'kanban' ? (
+              <KanbanBoard tasks={data.items} projectId={projectId} />
+            ) : (
+              <TasksList tasks={data.items} projectId={projectId} />
+            )}
           </div>
         )}
 

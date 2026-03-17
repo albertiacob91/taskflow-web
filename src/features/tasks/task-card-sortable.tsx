@@ -38,7 +38,7 @@ export function TaskCardSortable({
       ref={setNodeRef}
       style={style}
       className={`rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-800 ${
-        isDragging ? 'opacity-60' : ''
+        isDragging ? 'opacity-60 ring-2 ring-blue-400' : ''
       }`}
     >
       <div className="mb-3 flex items-start justify-between gap-3">

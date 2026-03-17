@@ -41,7 +41,7 @@ export function KanbanColumn({
       >
         {tasks.length === 0 && (
           <div className="rounded-xl border border-dashed border-slate-300 p-4 text-sm text-slate-400 dark:border-slate-700 dark:text-slate-500">
-            Suelta aquí una tarea
+            No hay tareas en esta columna
           </div>
         )}
 
