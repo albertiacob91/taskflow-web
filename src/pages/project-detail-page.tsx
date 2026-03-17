@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useProjectTasks } from '../features/tasks/use-project-tasks';
-import { TasksList } from '../features/tasks/tasks-list';
 import { CreateTaskForm } from '../features/tasks/create-task-form';
 import { TaskFilters } from '../features/tasks/task-filters';
 import { ProjectMembersPanel } from '../features/projects/project-members-panel';
 import { ProjectActivityPanel } from '../features/activity/project-activity-panel';
 import { useProjectDetail } from '../features/projects/use-project-detail';
+import { KanbanBoard } from '../features/tasks/kanban-board';
 
 export function ProjectDetailPage() {
   const { projectId = '' } = useParams();
@@ -95,7 +95,7 @@ export function ProjectDetailPage() {
 
         {!isLoading && !isError && data && data.items.length > 0 && (
           <div className="mb-8">
-            <TasksList tasks={data.items} projectId={projectId} />
+            <KanbanBoard tasks={data.items} projectId={projectId} />
           </div>
         )}
 
